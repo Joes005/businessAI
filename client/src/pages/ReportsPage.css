@@ -1,0 +1,216 @@
+.reports-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reports-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .reports-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.reports-header h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.reports-header p {
+  font-size: var(--text-sm);
+  color: var(--slate-600);
+  margin-top: 4px;
+}
+
+.reports-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Date Control Bar */
+.date-control-card .card-body {
+  padding: 12px 18px;
+}
+
+.date-control-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.preset-buttons-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.preset-btn {
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background-color: var(--slate-100);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--slate-700);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.preset-btn:hover {
+  background-color: var(--slate-200);
+}
+
+.preset-btn-active {
+  background-color: var(--primary-600) !important;
+  color: white !important;
+  border-color: var(--primary-600) !important;
+}
+
+.custom-date-inputs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.date-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.date-picker-input {
+  padding: 6px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  font-size: var(--text-xs);
+  outline: none;
+}
+
+/* Report Tabs Bar */
+.report-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid var(--border-light);
+  padding-bottom: 2px;
+}
+
+.report-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--slate-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.report-tab:hover {
+  color: var(--primary-600);
+}
+
+.report-tab-active {
+  color: var(--primary-600) !important;
+  border-bottom-color: var(--primary-600) !important;
+}
+
+.report-content-space {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.reports-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .reports-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Payment Methods Breakdown Grid */
+.payment-breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+.pm-card {
+  padding: 16px;
+  background-color: var(--slate-50);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.pm-name {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--slate-500);
+  text-transform: uppercase;
+}
+
+.pm-amount {
+  font-size: var(--text-xl);
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+/* Profit & Loss Statement Table */
+.pnl-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.pnl-statement-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.pnl-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--slate-100);
+  font-size: var(--text-sm);
+}
+
+.pnl-header-row {
+  background-color: var(--slate-100);
+  font-weight: 700;
+  color: var(--slate-700);
+}
+
+.pnl-total-row {
+  background-color: var(--emerald-50);
+  font-size: var(--text-base);
+  font-weight: 800;
+  border-bottom: none;
+}

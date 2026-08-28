@@ -1,0 +1,86 @@
+.customers-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.customers-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .customers-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.customers-header h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.customers-header p {
+  font-size: var(--text-sm);
+  color: var(--slate-600);
+  margin-top: 4px;
+}
+
+/* Stat Cards Grid */
+.customers-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .customers-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Filter Card Bar */
+.customers-filter-card .card-body {
+  padding: 16px 20px;
+}
+
+.customer-name-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-sub-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+/* Ledger Modal Content */
+.ledger-modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ledger-summary-banner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  background-color: var(--slate-50);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  text-align: center;
+}
+
+.ledger-section-title {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--slate-800);
+  margin-top: 8px;
+}

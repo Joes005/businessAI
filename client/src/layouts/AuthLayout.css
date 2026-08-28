@@ -1,0 +1,66 @@
+.auth-layout {
+  min-height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, var(--slate-900), var(--slate-800));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.auth-card-wrapper {
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-brand-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-logo-badge {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-700));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px auto;
+  box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+}
+
+.auth-app-name {
+  font-size: var(--text-2xl);
+  font-weight: 800;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+.auth-app-tagline {
+  font-size: var(--text-sm);
+  color: var(--slate-400);
+  margin-top: 4px;
+}
+
+.auth-form-card {
+  width: 100%;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-xl);
+  padding: 32px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.auth-footer-note {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  font-size: var(--text-xs);
+  color: var(--slate-400);
+}

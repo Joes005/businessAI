@@ -1,0 +1,124 @@
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.settings-header h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.settings-header p {
+  font-size: var(--text-sm);
+  color: var(--slate-600);
+  margin-top: 4px;
+}
+
+/* Tabs Bar */
+.settings-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 2px solid var(--border-light);
+  padding-bottom: 2px;
+}
+
+.settings-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--slate-600);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.settings-tab:hover {
+  color: var(--primary-600);
+}
+
+.settings-tab-active {
+  color: var(--primary-600) !important;
+  border-bottom-color: var(--primary-600) !important;
+}
+
+.settings-content-space {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Template Editor Box */
+.template-editor-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.template-textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  outline: none;
+  background-color: var(--slate-50);
+}
+
+.template-textarea:focus {
+  background-color: white;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.placeholders-help {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chips-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.placeholder-chip {
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  background-color: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  color: var(--primary-800);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.template-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* Automation Trigger Bar */
+.automation-trigger-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.business-info-display {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}

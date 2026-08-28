@@ -1,0 +1,26 @@
+# Dependencies
+/node_modules
+client/node_modules
+server/vendor
+
+# Environment & Config
+server/.env
+.env
+.env.local
+
+# Builds
+dist/
+client/dist/
+
+# Laravel Storage & Cache
+server/storage/*.key
+server/storage/framework/cache/data/*
+server/storage/framework/sessions/*
+server/storage/framework/views/*
+server/bootstrap/cache/*.php
+
+# IDE & OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
