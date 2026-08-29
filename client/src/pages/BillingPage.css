@@ -38,9 +38,19 @@
 /* Split Layout Container */
 .pos-split-container {
   display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   min-height: calc(100vh - 170px);
+}
+
+@media (max-width: 1200px) {
+  .pos-split-container {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 12px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -53,6 +63,7 @@
 .catalog-panel {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .catalog-card {
@@ -247,13 +258,15 @@
 .checkout-panel {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .checkout-card {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 20px !important;
+  padding: 16px !important;
+  box-sizing: border-box;
 }
 
 /* Customer Selector */
@@ -365,12 +378,18 @@
 .cart-item-info {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  padding-right: 8px;
 }
 
 .cart-item-name {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--slate-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cart-item-unit-price {

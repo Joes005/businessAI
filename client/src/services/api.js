@@ -70,6 +70,11 @@ export const apiService = {
   copilot: {
     chat: (prompt) => apiClient.post('/copilot/chat', { prompt }),
     getInsights: () => apiClient.get('/copilot/insights'),
+    confirmAction: (data) => apiClient.post('/copilot/confirm-action', data),
+    getBriefing: () => apiClient.get('/copilot/briefing'),
+    getGoals: () => apiClient.get('/copilot/goals'),
+    setGoal: (data) => apiClient.post('/copilot/goals', data),
+    createTask: (goal) => apiClient.post('/copilot/tasks', { goal }),
   },
 
   // Voice Commands API

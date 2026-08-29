@@ -56,6 +56,11 @@ Route::prefix('v1')->group(function () {
         Route::prefix('copilot')->group(function () {
             Route::post('/chat', [CopilotController::class, 'chat']);
             Route::get('/insights', [CopilotController::class, 'insights']);
+            Route::post('/confirm-action', [CopilotController::class, 'confirmAction']);
+            Route::get('/briefing', [CopilotController::class, 'briefing']);
+            Route::get('/goals', [CopilotController::class, 'goals']);
+            Route::post('/goals', [CopilotController::class, 'setGoal']);
+            Route::post('/tasks', [CopilotController::class, 'createTask']);
         });
 
         // Voice Commands API
