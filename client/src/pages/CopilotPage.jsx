@@ -165,23 +165,6 @@ export default function CopilotPage() {
 
   return (
     <div className="copilot-page">
-      {/* Copilot Header */}
-      <div className="copilot-header-banner">
-        <div className="copilot-header-info">
-          <div className="copilot-icon-badge">
-            <Sparkles size={24} className="text-primary" />
-          </div>
-          <div>
-            <h2>AI Business Copilot</h2>
-            <p>Your intelligent digital employee — ask questions in plain English.</p>
-          </div>
-        </div>
-
-        <Badge variant="primary" size="md">
-          <Bot size={14} /> Grounded on Live Database Data
-        </Badge>
-      </div>
-
       {/* Proactive Health Insights Banner */}
       {proactiveInsights.length > 0 && (
         <div className="proactive-insights-bar">

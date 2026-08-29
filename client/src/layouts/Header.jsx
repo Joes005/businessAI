@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Menu, Search, Plus, Bell, User, ChevronDown, LogOut, Store, Globe } from 'lucide-react';
+import { Menu, Search, Plus, Bell, User, ChevronDown, LogOut, Globe } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Badge from '../components/ui/Badge';
 import { useAuth } from '../contexts/AuthContext';
@@ -17,6 +17,7 @@ export default function Header({ onToggleSidebar, pageTitle = 'Dashboard' }) {
 
   const [apiStatus, setApiStatus] = useState({ online: false, checking: true, message: 'Checking...' });
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const profileMenuRef = useRef(null);
 
   const checkHealth = async () => {
     try {
@@ -35,6 +36,17 @@ export default function Header({ onToggleSidebar, pageTitle = 'Dashboard' }) {
     checkHealth();
     const interval = setInterval(checkHealth, 15000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Close profile dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+        setShowProfileMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleLogout = async () => {
@@ -65,15 +77,15 @@ export default function Header({ onToggleSidebar, pageTitle = 'Dashboard' }) {
         />
       </div>
 
-      {/* Right Area: Language Switcher, Status Badge, Quick Create, Notifications, Profile */}
+      {/* Right Area: Language, Status, POS trigger, Notifications, User Menu */}
       <div className="header-right">
-        {/* Language Switcher Toggle Button */}
+        {/* Language Switcher */}
         <button
           className="language-toggle-btn"
           onClick={toggleLanguage}
           title="Switch Language (English / தமிழ்)"
         >
-          <Globe size={16} />
+          <Globe size={15} />
           <span className="lang-text">{language === 'en' ? 'EN' : 'தமிழ்'}</span>
         </button>
 
@@ -89,14 +101,16 @@ export default function Header({ onToggleSidebar, pageTitle = 'Dashboard' }) {
         </div>
 
         {/* Quick Action POS Button */}
-        <Button
-          variant="primary"
-          size="sm"
-          icon={Plus}
-          onClick={() => navigate('/billing')}
-        >
-          {t('header.new_invoice')}
-        </Button>
+        <div className="header-new-invoice-btn">
+          <Button
+            variant="primary"
+            size="sm"
+            icon={Plus}
+            onClick={() => navigate('/billing')}
+          >
+            {t('header.new_invoice')}
+          </Button>
+        </div>
 
         {/* Notification Bell */}
         <button className="header-icon-btn" aria-label="Notifications">
@@ -104,8 +118,8 @@ export default function Header({ onToggleSidebar, pageTitle = 'Dashboard' }) {
           <span className="notification-dot" />
         </button>
 
-        {/* User Profile Menu */}
-        <div className="user-profile-wrapper" style={{ position: 'relative' }}>
+        {/* User Profile Dropdown Menu */}
+        <div className="user-profile-wrapper" ref={profileMenuRef}>
           <div
             className="user-profile-menu"
             onClick={() => setShowProfileMenu((prev) => !prev)}
@@ -114,17 +128,17 @@ export default function Header({ onToggleSidebar, pageTitle = 'Dashboard' }) {
               <User size={18} />
             </div>
             <div className="user-info-text">
-              <span className="user-name">{user?.name || 'User'}</span>
+              <span className="user-name">{user?.name || 'Owner'}</span>
               <span className="user-role">{currentBusiness?.name || 'My Shop'}</span>
             </div>
-            <ChevronDown size={14} className="user-menu-arrow" />
+            <ChevronDown size={14} className={`user-menu-arrow ${showProfileMenu ? 'arrow-rotated' : ''}`} />
           </div>
 
           {showProfileMenu && (
             <div className="profile-dropdown-card">
               <div className="dropdown-user-header">
-                <span className="dropdown-user-name">{user?.name}</span>
-                <span className="dropdown-user-email">{user?.email}</span>
+                <span className="dropdown-user-name">{user?.name || 'User'}</span>
+                <span className="dropdown-user-email">{user?.email || 'owner@example.com'}</span>
               </div>
               <div className="dropdown-divider" />
               <button

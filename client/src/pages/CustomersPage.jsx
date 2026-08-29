@@ -383,6 +383,236 @@ export default function CustomersPage() {
           </table>
         </div>
       </Card>
+
+      {/* 1. Add / Edit Customer Modal */}
+      {isCustomerModalOpen && (
+        <Modal
+          isOpen={isCustomerModalOpen}
+          onClose={() => setIsCustomerModalOpen(false)}
+          title={editingCustomer ? 'Edit Customer Details' : 'Add New Customer'}
+        >
+          <form onSubmit={handleCustomerSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <Input
+              label="Customer Full Name *"
+              value={customerFormData.name}
+              onChange={(e) => setCustomerFormData({ ...customerFormData, name: e.target.value })}
+              placeholder="e.g. Ramesh Kumar"
+              required
+            />
+
+            <div className="form-grid-2">
+              <Input
+                label="Phone Number (WhatsApp) *"
+                value={customerFormData.phone}
+                onChange={(e) => setCustomerFormData({ ...customerFormData, phone: e.target.value })}
+                placeholder="+91 98765 43210"
+                required
+              />
+
+              <Input
+                label="Email Address"
+                type="email"
+                value={customerFormData.email}
+                onChange={(e) => setCustomerFormData({ ...customerFormData, email: e.target.value })}
+                placeholder="customer@example.com"
+              />
+            </div>
+
+            {!editingCustomer && (
+              <Input
+                label="Opening Balance / Existing Debt"
+                type="number"
+                step="0.01"
+                value={customerFormData.opening_balance}
+                onChange={(e) => setCustomerFormData({ ...customerFormData, opening_balance: e.target.value })}
+                placeholder="0.00"
+              />
+            )}
+
+            <div className="input-field-group">
+              <label className="input-label">Customer Address</label>
+              <textarea
+                rows={2}
+                className="custom-textarea"
+                value={customerFormData.address}
+                onChange={(e) => setCustomerFormData({ ...customerFormData, address: e.target.value })}
+                placeholder="Shop address or delivery location..."
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '12px' }}>
+              <Button type="button" variant="ghost" onClick={() => setIsCustomerModalOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" isLoading={submittingCustomer}>
+                {editingCustomer ? 'Save Changes' : 'Create Customer'}
+              </Button>
+            </div>
+          </form>
+        </Modal>
+      )}
+
+      {/* 2. Collect Payment Modal */}
+      {isPaymentModalOpen && paymentCustomer && (
+        <Modal
+          isOpen={isPaymentModalOpen}
+          onClose={() => setIsPaymentModalOpen(false)}
+          title={`Collect Payment - ${paymentCustomer.name}`}
+        >
+          <form onSubmit={handlePaymentSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <div style={{ padding: '12px', backgroundColor: 'var(--amber-light)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(245,158,11,0.2)' }}>
+              <span style={{ fontSize: '0.85rem', color: 'var(--amber-hover)', fontWeight: '600' }}>
+                Total Outstanding Debt: {currencySymbol}{paymentCustomer.outstanding_amount?.toLocaleString() || 0}
+              </span>
+            </div>
+
+            <Input
+              label="Payment Amount Received (*)"
+              type="number"
+              step="0.01"
+              min="0.01"
+              value={paymentFormData.amount}
+              onChange={(e) => setPaymentFormData({ ...paymentFormData, amount: e.target.value })}
+              required
+            />
+
+            <div className="form-grid-2">
+              <div className="input-field-group">
+                <label className="input-label">Payment Method (*)</label>
+                <select
+                  className="custom-select"
+                  value={paymentFormData.payment_method}
+                  onChange={(e) => setPaymentFormData({ ...paymentFormData, payment_method: e.target.value })}
+                >
+                  <option value="CASH">CASH</option>
+                  <option value="UPI">UPI / GPay / PhonePe</option>
+                  <option value="CARD">Debit / Credit Card</option>
+                  <option value="BANK_TRANSFER">Bank Transfer / NEFT</option>
+                  <option value="CHEQUE">Cheque</option>
+                </select>
+              </div>
+
+              <Input
+                label="Reference / Transaction ID"
+                value={paymentFormData.reference_no}
+                onChange={(e) => setPaymentFormData({ ...paymentFormData, reference_no: e.target.value })}
+                placeholder="UPI ref #, Cheque #"
+              />
+            </div>
+
+            <div className="input-field-group">
+              <label className="input-label">Notes / Remarks</label>
+              <textarea
+                rows={2}
+                className="custom-textarea"
+                value={paymentFormData.notes}
+                onChange={(e) => setPaymentFormData({ ...paymentFormData, notes: e.target.value })}
+                placeholder="Payment receipt note..."
+              />
+            </div>
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '12px', marginTop: '12px' }}>
+              <Button type="button" variant="ghost" onClick={() => setIsPaymentModalOpen(false)}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="primary" isLoading={submittingPayment}>
+                Record Payment Received
+              </Button>
+            </div>
+          </form>
+        </Modal>
+      )}
+
+      {/* 3. Customer Ledger Statement Modal */}
+      {isLedgerDrawerOpen && ledgerCustomer && (
+        <Modal
+          isOpen={isLedgerDrawerOpen}
+          onClose={() => setIsLedgerDrawerOpen(false)}
+          title={`Account Ledger Statement - ${ledgerCustomer.name}`}
+        >
+          <div style={{ maxHeight: '450px', overflowY: 'auto' }}>
+            {loadingLedger ? (
+              <p style={{ textAlign: 'center', padding: '24px' }}>Loading customer statement...</p>
+            ) : !ledgerData ? (
+              <p style={{ textAlign: 'center', padding: '24px', color: 'var(--slate-500)' }}>No transactions found.</p>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {/* Balance Summary Header */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px', padding: '12px', background: 'var(--slate-50)', borderRadius: 'var(--radius-md)' }}>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>Total Invoiced</span>
+                    <h4 style={{ fontWeight: '700' }}>{currencySymbol}{ledgerData.total_purchased?.toLocaleString()}</h4>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>Total Paid</span>
+                    <h4 style={{ fontWeight: '700', color: 'var(--emerald)' }}>{currencySymbol}{ledgerData.total_paid?.toLocaleString()}</h4>
+                  </div>
+                  <div>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--slate-500)' }}>Balance Due</span>
+                    <h4 style={{ fontWeight: '700', color: ledgerData.outstanding_amount > 0 ? 'var(--rose)' : 'inherit' }}>
+                      {currencySymbol}{ledgerData.outstanding_amount?.toLocaleString()}
+                    </h4>
+                  </div>
+                </div>
+
+                {/* Invoices List */}
+                <h4 style={{ fontSize: '0.9rem', fontWeight: '600' }}>Invoices History</h4>
+                <table className="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Invoice #</th>
+                      <th>Total</th>
+                      <th>Paid</th>
+                      <th>Due</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(ledgerData.invoices || []).map((inv) => (
+                      <tr key={inv.id}>
+                        <td className="text-xs font-mono">{inv.date}</td>
+                        <td className="font-semibold">{inv.invoice_number}</td>
+                        <td>{currencySymbol}{inv.grand_total}</td>
+                        <td>{currencySymbol}{inv.amount_paid}</td>
+                        <td className="font-bold text-danger">{currencySymbol}{inv.balance_due}</td>
+                        <td>
+                          <Badge variant={inv.payment_status === 'PAID' ? 'success' : 'warning'} size="sm">
+                            {inv.payment_status}
+                          </Badge>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                {/* Payments List */}
+                <h4 style={{ fontSize: '0.9rem', fontWeight: '600', marginTop: '12px' }}>Payments History</h4>
+                <table className="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Date & Time</th>
+                      <th>Receipt #</th>
+                      <th>Method</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {(ledgerData.payments || []).map((pay) => (
+                      <tr key={pay.id}>
+                        <td className="text-xs font-mono">{new Date(pay.created_at).toLocaleString()}</td>
+                        <td>{pay.payment_number}</td>
+                        <td>{pay.payment_method}</td>
+                        <td className="font-bold text-emerald">{currencySymbol}{pay.amount}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
+  Receipt,
   Search,
   ShoppingCart,
   Plus,
@@ -131,8 +132,8 @@ export default function BillingPage() {
           {
             product_id: product.id,
             name: product.name,
-            unit_price: (float) => (product.selling_price || 0),
-            unit_price_raw: product.selling_price,
+            unit_price: parseFloat(product.selling_price) || 0,
+            unit_price_raw: parseFloat(product.selling_price) || 0,
             stock_available: product.stock_quantity,
             quantity: 1,
             unit: product.unit || 'unit',

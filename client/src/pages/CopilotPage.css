@@ -102,8 +102,8 @@
 .chat-card {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 250px);
-  min-height: 480px;
+  height: calc(100vh - 150px);
+  min-height: 500px;
 }
 
 .chat-card .card-body {

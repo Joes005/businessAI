@@ -32,19 +32,18 @@ export default function App() {
                 <Route path="register" element={<RegisterPage />} />
               </Route>
 
-              {/* Business Setup Wizard (Auth required, Business optional) */}
+              {/* Business Setup Wizard */}
               <Route element={<ProtectedRoute requireBusiness={false} />}>
                 <Route path="business-setup" element={<BusinessSetupPage />} />
               </Route>
 
-              {/* Protected Main Application Layout (Auth + Business required) */}
+              {/* Protected Main Application Layout */}
               <Route element={<ProtectedRoute requireBusiness={true} />}>
-                <Route path="/" element={<MainLayout pageTitle="Dashboard Overview" />}>
+                <Route path="/" element={<MainLayout />}>
                   <Route index element={<DashboardPage />} />
                   <Route path="billing" element={<BillingPage />} />
                   <Route path="products" element={<ProductsPage />} />
                   <Route path="customers" element={<CustomersPage />} />
-                  <Route path="expenses" element={<MainLayout pageTitle="Business Expenses" />} />
                   <Route path="reports" element={<ReportsPage />} />
                   <Route path="copilot" element={<CopilotPage />} />
                   <Route path="settings" element={<SettingsPage />} />
