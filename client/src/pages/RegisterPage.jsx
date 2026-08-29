@@ -52,8 +52,8 @@ export default function RegisterPage() {
   return (
     <form onSubmit={handleSubmit} className="auth-form">
       <div style={{ marginBottom: '20px' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--slate-900)' }}>Create Owner Account</h2>
-        <p style={{ fontSize: '0.875rem', color: 'var(--slate-500)' }}>Start managing your business in 60 seconds.</p>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>Create Owner Account</h2>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Start managing your business in 60 seconds.</p>
       </div>
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -108,9 +108,9 @@ export default function RegisterPage() {
         </Button>
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.875rem', color: 'var(--slate-600)' }}>
+      <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
         Already have an account?{' '}
-        <Link to="/login" style={{ fontWeight: 600, color: 'var(--primary-600)' }}>
+        <Link to="/login" style={{ fontWeight: 600, color: 'var(--brand-primary)' }}>
           Sign In
         </Link>
       </div>

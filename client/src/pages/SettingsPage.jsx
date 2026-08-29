@@ -219,36 +219,38 @@ export default function SettingsPage() {
           </Card>
 
           <Card title={t('settings.automation_logs')} subtitle="History of automated system checks">
-            <table className="custom-table" style={{ width: '100%' }}>
-              <thead>
-                <tr>
-                  <th>Timestamp</th>
-                  <th>Trigger Type</th>
-                  <th>Recipient / Target</th>
-                  <th>Alert Message</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {automationLogs.length === 0 ? (
-                  <tr><td colSpan={5} style={{ textAlign: 'center', padding: '24px' }}>No automation logs recorded yet. Click "Run Audit Now" to run checks.</td></tr>
-                ) : (
-                  automationLogs.map((log) => (
-                    <tr key={log.id}>
-                      <td className="text-xs">{new Date(log.created_at).toLocaleString()}</td>
-                      <td>
-                        <Badge variant={log.trigger_type === 'LOW_STOCK_ALERT' ? 'warning' : 'info'} size="sm">
-                          {log.trigger_type}
-                        </Badge>
-                      </td>
-                      <td className="font-semibold">{log.recipient || 'System'}</td>
-                      <td className="text-xs text-slate-700">{log.message}</td>
-                      <td><Badge variant="success" size="sm">{log.status}</Badge></td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+            <div className="table-responsive">
+              <table className="custom-table">
+                <thead>
+                  <tr>
+                    <th className="text-left" style={{ minWidth: '160px' }}>Timestamp</th>
+                    <th className="text-left" style={{ minWidth: '150px' }}>Trigger Type</th>
+                    <th className="text-left" style={{ minWidth: '150px' }}>Recipient / Target</th>
+                    <th className="text-left" style={{ minWidth: '220px' }}>Alert Message</th>
+                    <th className="text-center" style={{ minWidth: '100px' }}>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {automationLogs.length === 0 ? (
+                    <tr><td colSpan={5} className="text-center py-6 text-muted">No automation logs recorded yet. Click "Run Audit Now" to run checks.</td></tr>
+                  ) : (
+                    automationLogs.map((log) => (
+                      <tr key={log.id}>
+                        <td className="text-left text-xs font-mono text-muted">{new Date(log.created_at).toLocaleString()}</td>
+                        <td className="text-left">
+                          <Badge variant={log.trigger_type === 'LOW_STOCK_ALERT' ? 'warning' : 'info'} size="sm">
+                            {log.trigger_type}
+                          </Badge>
+                        </td>
+                        <td className="text-left font-semibold">{log.recipient || 'System'}</td>
+                        <td className="text-left text-xs">{log.message}</td>
+                        <td className="text-center"><Badge variant="success" size="sm">{log.status}</Badge></td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
           </Card>
         </div>
       )}

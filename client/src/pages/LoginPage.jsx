@@ -54,16 +54,16 @@ export default function LoginPage() {
   return (
     <form onSubmit={handleSubmit} className="auth-form">
       <div style={{ marginBottom: '20px' }}>
-        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--slate-900)' }}>Owner Login</h2>
-        <p style={{ fontSize: '0.875rem', color: 'var(--slate-500)' }}>Sign in to manage your business.</p>
+        <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--text-primary)' }}>Owner Login</h2>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)' }}>Sign in to manage your business.</p>
       </div>
 
       {errorMsg && (
         <div style={{
           padding: '10px 14px',
           borderRadius: 'var(--radius-md)',
-          backgroundColor: 'var(--accent-rose-light)',
-          color: 'var(--accent-rose)',
+          backgroundColor: 'var(--danger-soft)',
+          color: 'var(--danger)',
           fontSize: '0.875rem',
           fontWeight: 500,
           marginBottom: '16px',
@@ -101,9 +101,9 @@ export default function LoginPage() {
         </Button>
       </div>
 
-      <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.875rem', color: 'var(--slate-600)' }}>
+      <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '0.875rem', color: 'var(--text-secondary)' }}>
         Don't have a business account?{' '}
-        <Link to="/register" style={{ fontWeight: 600, color: 'var(--primary-600)' }}>
+        <Link to="/register" style={{ fontWeight: 600, color: 'var(--brand-primary)' }}>
           Create Account
         </Link>
       </div>

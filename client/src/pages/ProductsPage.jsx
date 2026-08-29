@@ -388,14 +388,14 @@ export default function ProductsPage() {
           <table className="custom-table">
             <thead>
               <tr>
-                <th>{t('products.product_name')}</th>
-                <th>{t('products.sku')}</th>
-                <th>{t('products.category')}</th>
-                <th>{t('products.purchase_price')}</th>
-                <th>{t('products.selling_price')}</th>
-                <th>{t('products.stock_quantity')}</th>
-                <th>{t('products.status')}</th>
-                <th style={{ textAlign: 'right' }}>{t('common.actions')}</th>
+                <th className="text-left" style={{ minWidth: '220px' }}>{t('products.product_name')}</th>
+                <th className="text-left" style={{ minWidth: '140px' }}>{t('products.sku')}</th>
+                <th className="text-left" style={{ minWidth: '140px' }}>{t('products.category')}</th>
+                <th className="text-right" style={{ minWidth: '130px' }}>{t('products.purchase_price')}</th>
+                <th className="text-right" style={{ minWidth: '130px' }}>{t('products.selling_price')}</th>
+                <th className="text-right" style={{ minWidth: '130px' }}>{t('products.stock_quantity')}</th>
+                <th className="text-center" style={{ minWidth: '120px' }}>{t('products.status')}</th>
+                <th className="text-right" style={{ minWidth: '180px' }}>{t('common.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -414,26 +414,24 @@ export default function ProductsPage() {
               ) : (
                 products.map((prod) => (
                   <tr key={prod.id}>
-                    <td>
+                    <td className="text-left">
                       <div className="product-name-cell">
-                        <span className="font-semibold text-slate-900">{prod.name}</span>
+                        <span className="table-cell-text">{prod.name}</span>
                         {prod.barcode && <span className="product-barcode-tag">{prod.barcode}</span>}
                       </div>
                     </td>
-                    <td className="font-mono text-xs">{prod.sku || '—'}</td>
-                    <td>{prod.category ? prod.category.name : 'Uncategorized'}</td>
-                    <td className="font-medium text-slate-700">
-                      {currencySymbol}{prod.purchase_price ? prod.purchase_price.toLocaleString() : '0'}
+                    <td className="text-left font-mono text-xs text-muted">{prod.sku || '—'}</td>
+                    <td className="text-left">{prod.category ? prod.category.name : 'Uncategorized'}</td>
+                    <td className="text-right font-mono">
+                      {currencySymbol}{prod.purchase_price ? Number(prod.purchase_price).toLocaleString() : '0'}
                     </td>
-                    <td className="font-bold text-slate-900">
-                      {currencySymbol}{prod.selling_price ? prod.selling_price.toLocaleString() : '0'}
+                    <td className="text-right font-mono font-bold">
+                      {currencySymbol}{prod.selling_price ? Number(prod.selling_price).toLocaleString() : '0'}
                     </td>
-                    <td>
-                      <span className="font-semibold">
-                        {prod.stock_quantity} {prod.unit}
-                      </span>
+                    <td className="text-right font-mono font-semibold">
+                      {prod.stock_quantity} {prod.unit}
                     </td>
-                    <td>
+                    <td className="text-center">
                       {prod.stock_quantity <= 0 ? (
                         <Badge variant="danger" size="sm">{t('products.out_of_stock')}</Badge>
                       ) : prod.is_low_stock ? (
@@ -442,8 +440,8 @@ export default function ProductsPage() {
                         <Badge variant="success" size="sm">{t('products.in_stock')}</Badge>
                       )}
                     </td>
-                    <td>
-                      <div className="table-actions-cell" style={{ justifyContent: 'flex-end' }}>
+                    <td className="text-right">
+                      <div className="table-actions-cell">
                         <Button
                           variant="outline"
                           size="sm"
@@ -708,34 +706,36 @@ export default function ProductsPage() {
             ) : movementsLog.length === 0 ? (
               <p style={{ textAlign: 'center', padding: '24px', color: 'var(--slate-500)' }}>No movement logs found.</p>
             ) : (
-              <table className="custom-table">
-                <thead>
-                  <tr>
-                    <th>Date & Time</th>
-                    <th>Type</th>
-                    <th>Qty</th>
-                    <th>Before</th>
-                    <th>After</th>
-                    <th>Ref / Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {movementsLog.map((log) => (
-                    <tr key={log.id}>
-                      <td className="font-mono text-xs">{new Date(log.created_at).toLocaleString()}</td>
-                      <td>
-                        <Badge variant={log.type === 'SALE' ? 'danger' : 'success'} size="sm">
-                          {log.type}
-                        </Badge>
-                      </td>
-                      <td className="font-bold">{log.quantity > 0 ? `+${log.quantity}` : log.quantity}</td>
-                      <td>{log.stock_before}</td>
-                      <td>{log.stock_after}</td>
-                      <td className="text-xs text-muted">{log.notes || log.reference_no || '—'}</td>
+              <div className="table-responsive">
+                <table className="custom-table" style={{ minWidth: '550px' }}>
+                  <thead>
+                    <tr>
+                      <th>Date & Time</th>
+                      <th>Type</th>
+                      <th>Qty</th>
+                      <th>Before</th>
+                      <th>After</th>
+                      <th>Ref / Notes</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {movementsLog.map((log) => (
+                      <tr key={log.id}>
+                        <td className="font-mono text-xs">{new Date(log.created_at).toLocaleString()}</td>
+                        <td>
+                          <Badge variant={log.type === 'SALE' ? 'danger' : 'success'} size="sm">
+                            {log.type}
+                          </Badge>
+                        </td>
+                        <td className="font-bold">{log.quantity > 0 ? `+${log.quantity}` : log.quantity}</td>
+                        <td>{log.stock_before}</td>
+                        <td>{log.stock_after}</td>
+                        <td className="text-xs text-muted">{log.notes || log.reference_no || '—'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             )}
           </div>
         </Modal>

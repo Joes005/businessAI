@@ -291,13 +291,13 @@ export default function CustomersPage() {
           <table className="custom-table">
             <thead>
               <tr>
-                <th>{t('customers.customer_name')}</th>
-                <th>{t('customers.phone')}</th>
-                <th>{t('customers.total_purchased')}</th>
-                <th>{t('customers.total_paid')}</th>
-                <th>{t('customers.outstanding_amount')}</th>
-                <th>{t('customers.last_purchase')}</th>
-                <th style={{ textAlign: 'right' }}>{t('common.actions')}</th>
+                <th className="text-left" style={{ minWidth: '180px' }}>{t('customers.customer_name')}</th>
+                <th className="text-left" style={{ minWidth: '140px' }}>{t('customers.phone')}</th>
+                <th className="text-right" style={{ minWidth: '130px' }}>{t('customers.total_purchased')}</th>
+                <th className="text-right" style={{ minWidth: '120px' }}>{t('customers.total_paid')}</th>
+                <th className="text-right" style={{ minWidth: '140px' }}>{t('customers.outstanding_amount')}</th>
+                <th className="text-center" style={{ minWidth: '130px' }}>{t('customers.last_purchase')}</th>
+                <th className="text-right" style={{ minWidth: '220px' }}>{t('common.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -316,17 +316,17 @@ export default function CustomersPage() {
               ) : (
                 customers.map((cust) => (
                   <tr key={cust.id}>
-                    <td>
-                      <span className="font-semibold text-slate-900">{cust.name}</span>
+                    <td className="text-left">
+                      <span className="table-cell-text">{cust.name}</span>
                     </td>
-                    <td className="text-xs font-mono">{cust.phone || '—'}</td>
-                    <td className="font-medium text-slate-700">
+                    <td className="text-left text-xs font-mono text-muted">{cust.phone || '—'}</td>
+                    <td className="text-right font-mono font-medium">
                       {currencySymbol}{cust.total_purchased ? cust.total_purchased.toLocaleString() : '0'}
                     </td>
-                    <td className="font-medium text-slate-700">
+                    <td className="text-right font-mono font-medium">
                       {currencySymbol}{cust.total_paid ? cust.total_paid.toLocaleString() : '0'}
                     </td>
-                    <td>
+                    <td className="text-right font-mono">
                       {cust.outstanding_amount > 0 ? (
                         <span className="font-bold text-danger">
                           {currencySymbol}{cust.outstanding_amount.toLocaleString()}
@@ -335,9 +335,9 @@ export default function CustomersPage() {
                         <span className="text-xs text-muted">Cleared</span>
                       )}
                     </td>
-                    <td className="text-xs text-slate-500">{cust.last_purchase_date || 'No purchases'}</td>
-                    <td>
-                      <div className="table-actions-cell" style={{ justifyContent: 'flex-end' }}>
+                    <td className="text-center text-xs text-muted">{cust.last_purchase_date || 'No purchases'}</td>
+                    <td className="text-right">
+                      <div className="table-actions-cell">
                         {cust.outstanding_amount > 0 && (
                           <>
                             <Button
@@ -557,57 +557,61 @@ export default function CustomersPage() {
 
                 {/* Invoices List */}
                 <h4 style={{ fontSize: '0.9rem', fontWeight: '600' }}>Invoices History</h4>
-                <table className="custom-table">
-                  <thead>
-                    <tr>
-                      <th>Date</th>
-                      <th>Invoice #</th>
-                      <th>Total</th>
-                      <th>Paid</th>
-                      <th>Due</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(ledgerData.invoices || []).map((inv) => (
-                      <tr key={inv.id}>
-                        <td className="text-xs font-mono">{inv.date}</td>
-                        <td className="font-semibold">{inv.invoice_number}</td>
-                        <td>{currencySymbol}{inv.grand_total}</td>
-                        <td>{currencySymbol}{inv.amount_paid}</td>
-                        <td className="font-bold text-danger">{currencySymbol}{inv.balance_due}</td>
-                        <td>
-                          <Badge variant={inv.payment_status === 'PAID' ? 'success' : 'warning'} size="sm">
-                            {inv.payment_status}
-                          </Badge>
-                        </td>
+                <div className="table-responsive">
+                  <table className="custom-table" style={{ minWidth: '550px' }}>
+                    <thead>
+                      <tr>
+                        <th>Date</th>
+                        <th>Invoice #</th>
+                        <th>Total</th>
+                        <th>Paid</th>
+                        <th>Due</th>
+                        <th>Status</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {(ledgerData.invoices || []).map((inv) => (
+                        <tr key={inv.id}>
+                          <td className="text-xs font-mono">{inv.date}</td>
+                          <td className="font-semibold">{inv.invoice_number}</td>
+                          <td>{currencySymbol}{inv.grand_total}</td>
+                          <td>{currencySymbol}{inv.amount_paid}</td>
+                          <td className="font-bold text-danger">{currencySymbol}{inv.balance_due}</td>
+                          <td>
+                            <Badge variant={inv.payment_status === 'PAID' ? 'success' : 'warning'} size="sm">
+                              {inv.payment_status}
+                            </Badge>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
 
                 {/* Payments List */}
                 <h4 style={{ fontSize: '0.9rem', fontWeight: '600', marginTop: '12px' }}>Payments History</h4>
-                <table className="custom-table">
-                  <thead>
-                    <tr>
-                      <th>Date & Time</th>
-                      <th>Receipt #</th>
-                      <th>Method</th>
-                      <th>Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {(ledgerData.payments || []).map((pay) => (
-                      <tr key={pay.id}>
-                        <td className="text-xs font-mono">{new Date(pay.created_at).toLocaleString()}</td>
-                        <td>{pay.payment_number}</td>
-                        <td>{pay.payment_method}</td>
-                        <td className="font-bold text-emerald">{currencySymbol}{pay.amount}</td>
+                <div className="table-responsive">
+                  <table className="custom-table" style={{ minWidth: '450px' }}>
+                    <thead>
+                      <tr>
+                        <th>Date & Time</th>
+                        <th>Receipt #</th>
+                        <th>Method</th>
+                        <th>Amount</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {(ledgerData.payments || []).map((pay) => (
+                        <tr key={pay.id}>
+                          <td className="text-xs font-mono">{new Date(pay.created_at).toLocaleString()}</td>
+                          <td>{pay.payment_number}</td>
+                          <td>{pay.payment_method}</td>
+                          <td className="font-bold text-emerald">{currencySymbol}{pay.amount}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             )}
           </div>

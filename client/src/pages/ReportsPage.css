@@ -58,23 +58,26 @@
 .preset-btn {
   padding: 6px 14px;
   border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  background-color: var(--slate-100);
-  font-size: var(--text-xs);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-input);
+  font-size: 0.78rem;
   font-weight: 600;
-  color: var(--slate-700);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .preset-btn:hover {
-  background-color: var(--slate-200);
+  background-color: var(--surface-secondary);
+  color: var(--text-primary);
 }
 
+.preset-btn.preset-active,
 .preset-btn-active {
-  background-color: var(--primary-600) !important;
-  color: white !important;
-  border-color: var(--primary-600) !important;
+  background-color: var(--brand-primary) !important;
+  color: #ffffff !important;
+  border-color: var(--brand-primary) !important;
+  box-shadow: 0 2px 4px rgba(249, 115, 22, 0.25);
 }
 
 .custom-date-inputs {
@@ -91,10 +94,16 @@
 
 .date-picker-input {
   padding: 6px 10px;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--border-light);
-  font-size: var(--text-xs);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 0.78rem;
   outline: none;
+}
+
+.date-picker-input:focus {
+  border-color: var(--brand-primary);
 }
 
 /* Report Tabs Bar */
@@ -102,7 +111,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  border-bottom: 2px solid var(--border-light);
+  border-bottom: 1px solid var(--border-subtle);
   padding-bottom: 2px;
 }
 
@@ -114,20 +123,21 @@
   background: transparent;
   border: none;
   border-bottom: 3px solid transparent;
-  font-size: var(--text-sm);
+  font-size: 0.88rem;
   font-weight: 600;
-  color: var(--slate-600);
+  color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .report-tab:hover {
-  color: var(--primary-600);
+  color: var(--brand-primary);
 }
 
+.report-tab.tab-active,
 .report-tab-active {
-  color: var(--primary-600) !important;
-  border-bottom-color: var(--primary-600) !important;
+  color: var(--brand-primary) !important;
+  border-bottom-color: var(--brand-primary) !important;
 }
 
 .report-content-space {
@@ -179,10 +189,47 @@
 }
 
 /* Profit & Loss Statement Table */
-.pnl-summary-grid {
+.pnl-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .pnl-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 550px) {
+  .pnl-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pnl-stat-card {
+  padding: 16px 18px;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pnl-stat-card .stat-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.pnl-stat-card .stat-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text-primary);
 }
 
 .pnl-statement-table {

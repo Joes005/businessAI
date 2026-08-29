@@ -4,26 +4,27 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(15, 23, 42, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: 16px;
-  animation: modal-fade-in 0.2s ease-out;
+  animation: modal-fade-in 0.15s ease;
 }
 
 .modal-container {
-  background-color: var(--bg-surface);
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xl);
+  box-shadow: var(--shadow-lg);
   width: 100%;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  animation: modal-slide-up 0.2s ease-out;
+  animation: modal-slide-up 0.15s ease;
 }
 
 .modal-sm { max-width: 420px; }
@@ -34,29 +35,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--border-light);
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .modal-title {
-  font-size: var(--text-lg);
-  font-weight: 600;
-  color: var(--slate-900);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .modal-subtitle {
-  font-size: var(--text-xs);
-  color: var(--slate-500);
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
   margin-top: 2px;
 }
 
 .modal-close-btn {
   background: transparent;
   border: none;
-  color: var(--slate-400);
+  color: var(--text-tertiary);
   cursor: pointer;
   padding: 4px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,8 +65,8 @@
 }
 
 .modal-close-btn:hover {
-  background-color: var(--slate-100);
-  color: var(--slate-700);
+  background-color: var(--surface-secondary);
+  color: var(--text-primary);
 }
 
 .modal-body {
@@ -78,10 +79,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  padding: 16px 24px;
-  border-top: 1px solid var(--border-light);
-  background-color: var(--slate-50);
+  gap: 10px;
+  padding: 14px 24px;
+  border-top: 1px solid var(--border-subtle);
+  background-color: var(--surface-primary);
 }
 
 @keyframes modal-fade-in {
@@ -90,6 +91,6 @@
 }
 
 @keyframes modal-slide-up {
-  from { transform: translateY(16px); opacity: 0; }
+  from { transform: translateY(12px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }

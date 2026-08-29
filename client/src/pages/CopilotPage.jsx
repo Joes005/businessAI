@@ -223,10 +223,10 @@ export default function CopilotPage() {
   };
 
   return (
-    <div className="copilot-page">
+    <div className="copilot-page animate-fade-in">
       {/* Daily Briefing Header Widget */}
       {dailyBriefing && (
-        <div className="daily-briefing-card">
+        <div className="daily-briefing-card glass-card">
           <div className="briefing-header">
             <div className="briefing-title">
               <Sun size={20} className="briefing-sun-icon" />
@@ -265,7 +265,7 @@ export default function CopilotPage() {
 
       {/* Action Confirmation Modal Banner */}
       {pendingAction && (
-        <div className="action-confirmation-banner">
+        <div className="action-confirmation-banner glass-card">
           <div className="confirmation-content">
             <ShieldAlert size={20} className="confirmation-icon" />
             <div>
@@ -285,7 +285,7 @@ export default function CopilotPage() {
       )}
 
       {/* Main Chat Window Card */}
-      <Card className="chat-card" padding="compact">
+      <Card className="chat-card glass-card" padding="compact">
         {/* Messages Stream Container */}
         <div className="chat-messages-container">
           {messages.map((msg) => (
@@ -399,16 +399,19 @@ export default function CopilotPage() {
           </div>
         </div>
 
-        {/* Chat Input Bar */}
+        {/* Chat Input Bar with Pulsating Audio Ring */}
         <div className="chat-input-bar">
-          <button
-            type="button"
-            className={`voice-btn ${isListening ? 'voice-btn-active' : ''}`}
-            onClick={toggleVoiceRecognition}
-            title={isListening ? 'Listening...' : 'Speak Question'}
-          >
-            {isListening ? <MicOff size={18} /> : <Mic size={18} />}
-          </button>
+          <div className="voice-btn-wrapper">
+            {isListening && <div className="pulse-ring voice-ring" />}
+            <button
+              type="button"
+              className={`voice-btn ${isListening ? 'voice-btn-active' : ''}`}
+              onClick={toggleVoiceRecognition}
+              title={isListening ? 'Listening...' : 'Speak Question'}
+            >
+              {isListening ? <MicOff size={18} /> : <Mic size={18} />}
+            </button>
+          </div>
 
           <input
             type="text"
